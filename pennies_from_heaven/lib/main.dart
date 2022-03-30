@@ -1,20 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'screens/home_page.dart';
-import 'screens/second_page.dart';
+import 'package:pennies_from_heaven/firebase_options.dart';
+import 'package:pennies_from_heaven/models/pfhuser.dart';
+import 'package:pennies_from_heaven/screens/wrapper.dart';
+import 'package:pennies_from_heaven/services/auth.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(routes: {
-      '/': (context) => const HomePage(),
-      '/second': (context) => const SecondPage(),
-    });
+    return StreamProvider<PfhUser?>.value(
+      value: AuthService().user,
+      initialData: null,
+      child: const MaterialApp(
+        home: Wrapper(),
+      ),
+    );
   }
 }
