@@ -12,6 +12,6 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<PfhUser?>(context);
 
     // return either the Home or Authenticate widget
-    return user == null ? const Authenticate() : const HomePage();
+    return user == null ? const Authenticate() : HomePage();
   }
 }
