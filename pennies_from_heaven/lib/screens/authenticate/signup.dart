@@ -43,7 +43,6 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(height: 20.0),
               TextFormField(
                 decoration: textInputDecoration.copyWith(
-                  hintText: 'Email',
                   prefixIcon: const Icon(Icons.email),
                   labelText: 'Email',
                 ),
@@ -55,7 +54,6 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(height: 20.0),
               TextFormField(
                 decoration: textInputDecoration.copyWith(
-                  hintText: 'Password',
                   prefixIcon: const Icon(Icons.lock),
                   labelText: 'Password',
                 ),
