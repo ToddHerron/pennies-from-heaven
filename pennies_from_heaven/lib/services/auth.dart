@@ -8,7 +8,6 @@ class AuthService {
 
   PfhUser? _userFromFirebaseUser(User? user) {
     if (user == null) return null;
-
     return PfhUser(uid: user.uid);
   }
 
@@ -18,16 +17,25 @@ class AuthService {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
-  // sign in anon
+  // sign up with email and password
 
-  Future signInAnon() async {
+  Future signUpWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInAnonymously();
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
       return _userFromFirebaseUser(user);
-    } catch (e) {
-      // print(e.toString());
-      return null;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'weak-password':
+          return 'The password provided is too weak';
+        case 'email-already-in-use':
+          return 'An account already exists for that email';
+        case 'invalid-email':
+          return ('Invalid email');
+        default:
+          return 'Sign-up error: ${e.code}';
+      }
     }
   }
 
@@ -39,9 +47,17 @@ class AuthService {
           email: email, password: password);
       User? user = result.user;
       return _userFromFirebaseUser(user);
-    } catch (e) {
-      // print(e.toString());
-      return null;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'user-not-found':
+          return ('User not found');
+        case 'wrong-password':
+          return ('Wrong password');
+        case 'invalid-email':
+          return ('Invalid email');
+        default:
+          return 'Unknown error';
+      }
     }
   }
 
