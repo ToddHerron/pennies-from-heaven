@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pennies_from_heaven/services/auth.dart';
+import 'package:pennies_from_heaven/shared/constants.dart';
 
 class SignUp extends StatefulWidget {
   final Function toggleView;
@@ -41,11 +42,10 @@ class _SignUpState extends State<SignUp> {
             children: [
               const SizedBox(height: 20.0),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: textInputDecoration.copyWith(
                   hintText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
+                  prefixIcon: const Icon(Icons.email),
+                  labelText: 'Email',
                 ),
                 onChanged: (value) {
                   setState(() => email = value);
@@ -54,11 +54,10 @@ class _SignUpState extends State<SignUp> {
               ),
               const SizedBox(height: 20.0),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: textInputDecoration.copyWith(
                   hintText: 'Password',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
+                  prefixIcon: const Icon(Icons.lock),
+                  labelText: 'Password',
                 ),
                 onChanged: (value) {
                   setState(() => password = value);
