@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:pennies_from_heaven/models/pfhuser.dart';
+import 'package:pennies_from_heaven/shared/constants.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -20,12 +22,18 @@ class AuthService {
   // sign up with email and password
 
   Future signUpWithEmailAndPassword(String email, String password) async {
+    easyLoadingConfigForForms();
     try {
+      EasyLoading.show(
+        status: 'Creating account...',
+      );
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
+      EasyLoading.dismiss();
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
       switch (e.code) {
         case 'weak-password':
           return 'The password provided is too weak';
@@ -42,12 +50,16 @@ class AuthService {
   // sign in with email and password
 
   Future signInWithEmailAndPassword(String email, String password) async {
+    easyLoadingConfigForForms();
     try {
+      EasyLoading.show();
       UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
+      EasyLoading.dismiss();
       return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
       switch (e.code) {
         case 'user-not-found':
           return ('User not found');
