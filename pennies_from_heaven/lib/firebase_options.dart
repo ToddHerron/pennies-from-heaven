@@ -38,7 +38,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBQzqs67VjxzzjMYsIZaO5-cRTiuc2F0ns',
+    apiKey: 'AIzaSyC56whL4uwG56p4WTkahrDXnXmjB_AcPPE',
     appId: '1:387393806114:web:b1d229977ce487699c8f7b',
     messagingSenderId: '387393806114',
     projectId: 'pennies-from-heaven---de-fe0ac',
@@ -49,7 +49,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDAKWeSD3I6QOaXxmKVsvE1TfllCDT5Hxk',
+    apiKey: 'AIzaSyCcGVnkk4NEQwxwnA-t001QToexyHxRd8U',
     appId: '1:387393806114:android:c4aaad95a373069d9c8f7b',
     messagingSenderId: '387393806114',
     projectId: 'pennies-from-heaven---de-fe0ac',
@@ -58,14 +58,16 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAXRlbjSw0KNCHnSXa956T7G0H_-xxktkc',
+    apiKey: 'AIzaSyAjhK-7ObNsUyqcm6Ye53VRP94iPo-iNFA',
     appId: '1:387393806114:ios:cea49c2fc8f80ccf9c8f7b',
     messagingSenderId: '387393806114',
     projectId: 'pennies-from-heaven---de-fe0ac',
     databaseURL: 'https://pennies-from-heaven---de-fe0ac.firebaseio.com',
     storageBucket: 'pennies-from-heaven---de-fe0ac.appspot.com',
-    androidClientId: '387393806114-v3mm0vgtc2qnotk1fdbqthgttpp1hnmv.apps.googleusercontent.com',
-    iosClientId: '387393806114-i7n6o2fqn921f784q2crn99g4kmqn3k5.apps.googleusercontent.com',
+    androidClientId:
+        '387393806114-v3mm0vgtc2qnotk1fdbqthgttpp1hnmv.apps.googleusercontent.com',
+    iosClientId:
+        '387393806114-i7n6o2fqn921f784q2crn99g4kmqn3k5.apps.googleusercontent.com',
     iosBundleId: 'com.penniesfromheaven-dev.app',
   );
 }
