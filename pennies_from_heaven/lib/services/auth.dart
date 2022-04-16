@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:pennies_from_heaven/models/pfhuser.dart';
 import 'package:pennies_from_heaven/shared/constants.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -73,6 +74,61 @@ class AuthService {
     }
   }
 
+  // sign in with Google
+
+  Future signInWithGoogle() async {
+    GoogleSignInAccount? googleUser;
+
+    easyLoadingConfigForForms();
+
+    try {
+      EasyLoading.show();
+
+      // Trigger the authentication flow
+      googleUser = await GoogleSignIn(
+              clientId:
+                  '387393806114-1a59l34q1libjccpr0d4a8qk0aeuf1k8.apps.googleusercontent.com')
+          .signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+
+      UserCredential result = await _auth.signInWithCredential(credential);
+      User? user = result.user;
+
+      EasyLoading.dismiss();
+
+      return _userFromFirebaseUser(user);
+    } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
+
+      switch (e.code) {
+        case 'account-exists-with-different-credential':
+          return 'An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.';
+        case 'invalid-credential':
+          return 'The supplied auth credential is malformed or has expired.';
+        case 'operation-not-allowed':
+          return 'Signing in with a provider that is not enabled for this Firebase project.';
+        case 'user-disabled':
+          return 'The user account has been disabled by an administrator.';
+        case 'user-not-found':
+          return 'There is no user record corresponding to this identifier. The user may have been deleted.';
+        case 'wrong-password':
+          return 'The password is invalid or the user does not have a password.';
+        default:
+          return 'Unknown error occurred. ${e.code}';
+      }
+    }
+  }
   // sign out
 
   Future signOut() async {

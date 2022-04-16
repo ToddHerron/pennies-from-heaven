@@ -94,6 +94,26 @@ class _SignInState extends State<SignIn> {
                 error,
                 style: const TextStyle(color: Colors.red, fontSize: 12.0),
               ),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red)),
+                child: const Text(
+                  'Sign In with Google',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  _auth.signInWithGoogle().then((value) {
+                    if (value.runtimeType == String) {
+                      setState(() {
+                        error = value;
+                      });
+                    }
+
+                    return;
+                  });
+                },
+              ),
             ],
           ),
         ),
