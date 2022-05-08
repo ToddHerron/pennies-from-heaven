@@ -117,6 +117,26 @@ class _SignInState extends State<SignIn> {
                     });
                   },
                 ),
+                const SizedBox(height: 20.0),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.red)),
+                  child: const Text(
+                    'Sign In with Facebook',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    _auth.signInWithFacebook().then((value) {
+                      if (value.runtimeType == String) {
+                        setState(() {
+                          error = value;
+                        });
+                      }
+
+                      return;
+                    });
+                  },
+                ),
               ],
             ),
           ),
