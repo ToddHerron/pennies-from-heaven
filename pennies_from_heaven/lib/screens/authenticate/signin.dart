@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:pennies_from_heaven/services/auth.dart';
 import 'package:pennies_from_heaven/shared/constants.dart';
 
@@ -69,42 +70,29 @@ class _SignInState extends State<SignIn> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 20.0),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue)),
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _auth
-                          .signInWithEmailAndPassword(email, password)
-                          .then((value) {
-                        if (value.runtimeType == String) {
-                          setState(() {
-                            error = value;
-                          });
-                        }
+                SignInButtonBuilder(
+                    backgroundColor: Colors.blueAccent,
+                    elevation: 0.0,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _auth
+                            .signInWithEmailAndPassword(email, password)
+                            .then((value) {
+                          if (value.runtimeType == String) {
+                            setState(() {
+                              error = value;
+                            });
+                          }
 
-                        return;
-                      });
-                    }
-                  },
-                ),
+                          return;
+                        });
+                      }
+                    },
+                    text: 'Get going with email'),
                 const SizedBox(height: 20.0),
-                Text(
-                  error,
-                  style: const TextStyle(color: Colors.red, fontSize: 12.0),
-                ),
-                const SizedBox(height: 20.0),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red)),
-                  child: const Text(
-                    'Sign In with Google',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                SignInButton(
+                  Buttons.GoogleDark,
+                  elevation: 0.0,
                   onPressed: () {
                     _auth.signInWithGoogle().then((value) {
                       if (value.runtimeType == String) {
@@ -118,13 +106,9 @@ class _SignInState extends State<SignIn> {
                   },
                 ),
                 const SizedBox(height: 20.0),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red)),
-                  child: const Text(
-                    'Sign In with Facebook',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                SignInButton(
+                  Buttons.FacebookNew,
+                  elevation: 0.0,
                   onPressed: () {
                     _auth.signInWithFacebook().then((value) {
                       if (value.runtimeType == String) {
@@ -137,6 +121,12 @@ class _SignInState extends State<SignIn> {
                     });
                   },
                 ),
+                const SizedBox(height: 20.0),
+                Text(
+                  error,
+                  style: const TextStyle(color: Colors.red, fontSize: 12.0),
+                ),
+                const SizedBox(height: 20.0),
               ],
             ),
           ),
