@@ -9,6 +9,7 @@ import 'package:pennies_from_heaven/models/pfhuser.dart';
 import 'package:pennies_from_heaven/screens/wrapper.dart';
 import 'package:pennies_from_heaven/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'dart:html';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,12 @@ void main() async {
   print('kIsWeb = $kIsWeb');
 
   if (kIsWeb) {
-    // initialiaze the facebook javascript SDK
+    var splitUrl = window.location.href.split('/');
+    String clientId = splitUrl[splitUrl.length -
+        1]; // A clientId with String length = 0 means no client id was detected in the URL.
+    print('clientId = $clientId');
+
+    // initialize the facebook javascript SDK
 
     try {
       await FacebookAuth.i.webInitialize(
