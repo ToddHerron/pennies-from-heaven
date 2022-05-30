@@ -137,8 +137,8 @@ class AuthService {
       final LoginResult result = await FacebookAuth.instance.login(
         permissions: ['email', 'public_profile'],
       );
-      print('result: ' + result.accessToken.toString()); // access token
-      print('result.status = ' + result.status.toString());
+      print('result: ${result.accessToken}'); // access token
+      print('result.status = ${result.status}');
 
       switch (result.status) {
         case LoginStatus.success:
@@ -149,7 +149,7 @@ class AuthService {
           final UserCredential authResult =
               await _auth.signInWithCredential(credential);
 
-          print('authResult.user.uid = ' + authResult.user.toString());
+          print('authResult.user.uid = ${authResult.user}');
 
           final User? user = authResult.user;
           return _userFromFirebaseUser(user);

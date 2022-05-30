@@ -9,7 +9,10 @@ import 'package:pennies_from_heaven/models/pfhuser.dart';
 import 'package:pennies_from_heaven/screens/wrapper.dart';
 import 'package:pennies_from_heaven/services/auth.dart';
 import 'package:provider/provider.dart';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
+
+import 'services/route_generator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +54,11 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: const Wrapper(),
+        initialRoute: '/',
+        onGenerateRoute: RouteGenerator.generateRoute,
+        routes: {
+          '/': (context) => const Wrapper(),
+        },
         builder: EasyLoading.init(),
       ),
     );
